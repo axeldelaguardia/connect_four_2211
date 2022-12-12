@@ -7,6 +7,12 @@ class Board
 		@rows = []
 		@computer = computer
 		@temp_array = []
+    @block_odd = []
+    @block_even = []
+    @win_odd = []
+    @win_even = []
+    @row_sections = []
+    @row_check = []
 	end
 
 	def create_board
@@ -143,4 +149,99 @@ class Board
 		game_winner.compact!
 		return game_winner[0]
 	end
+
+  # Start of Intelligent Computer
+  def computer_column_block
+    column_block = []
+    board.each do |key, value|
+      board[key].each_cons(4) do |element|
+        column_block << key if element == ['.','X', 'X', 'X']
+      end
+    end 
+    computer.input = column_block.first
+  end
+
+  def computer_column_win
+    column_win = []
+    board.each do |key, value|
+      board[key].each_cons(4) do |element|
+        column_win << key if element == ['.','O', 'O', 'O']
+      end
+    end 
+    computer.input = column_win.first
+  end
+
+  def computer_row_check
+    n = 0
+    rows.reverse.map {|n| n.each_cons(4) {|element| @row_sections.push(element)}}
+
+    @row_check.push(@row_sections.slice(0,4))
+    @row_check.push(@row_sections.slice(4,4))
+    @row_check.push(@row_sections.slice(8,4))
+    @row_check.push(@row_sections.slice(12,4))
+    @row_check.push(@row_sections.slice(16,4))
+    @row_check.push(@row_sections.slice(20,4))
+  end 
+
+  def computer_row_block
+    computer_row_check
+    n = 0
+    6.times do
+      @row_check[n].find do |section|
+        @block_odd = [@row_check[n].index(section)] if section == ['.', 'X', 'X', 'X']
+      end 
+      n += 1
+    end 
+    
+    n = 0
+    6.times do
+      @row_check[n].find do |section|
+        @block_even = [@row_check[n].index(section)] if section == ['X', 'X', 'X', '.']
+      end 
+      n += 1
+    end
+  end
+
+  def computer_row_win
+    computer_row_check 
+    n = 0
+    6.times do
+      @row_check[n].find do |section|
+      @win_odd = [@row_check[n].index(section)] if section == ['.', 'O', 'O', 'O']
+      end 
+      n += 1
+    end 
+
+    n = 0
+    6.times do
+      @row_check[n].find do |section|
+      @win_even = [@row_check[n].index(section)] if section == ['O', 'O', 'O', '.']
+      end 
+      n += 1
+    end 
+  end
+
+  def computer_input_rows
+    if @block_odd.first == 0 || @win_odd.first == 0
+      computer.input = 'A'
+    elsif @block_odd.first == 1 || @win_odd.first == 1
+      computer.input = 'B'
+    elsif @block_odd.first == 2 || @win_odd.first == 2
+      computer.input = 'C'
+    elsif @block_odd.first == 3 || @win_odd.first == 3
+      computer.input = 'D'
+    else computer.give_input 
+    end
+
+    if @block_even.first == 0 || @win_even.first == 0
+      computer.input = 'D'
+    elsif @block_even.first == 1 || @win_even.first == 1
+      computer.input = 'E'
+    elsif @block_even.first == 2 || @win_even.first == 2
+      computer.input = 'F'
+    elsif @block_even.first == 3 || @win_even.first == 3
+      computer.input = 'G'
+    else computer.give_input
+    end 
+  end
 end
