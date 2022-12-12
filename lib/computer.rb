@@ -1,5 +1,6 @@
 class Computer
-	attr_reader :input, :piece
+	attr_reader :piece
+  attr_accessor :input
 	
 	def initialize
 		@input = nil
