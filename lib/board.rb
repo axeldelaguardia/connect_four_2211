@@ -13,6 +13,10 @@ class Board
     @win_even = []
     @row_sections = []
     @row_check = []
+    @block_d_even = []
+    @block_d_odd = []
+    @win_d_even = []
+    @win_d_odd = []
 	end
 
 	def create_board
@@ -223,17 +227,14 @@ class Board
 
   def computer_input_rows
     if @block_odd.first == 0 || @win_odd.first == 0
-      computer.input = 'A'
+      return computer.input = 'A'
     elsif @block_odd.first == 1 || @win_odd.first == 1
-      computer.input = 'B'
+      return computer.input = 'B'
     elsif @block_odd.first == 2 || @win_odd.first == 2
-      computer.input = 'C'
+      return computer.input = 'C'
     elsif @block_odd.first == 3 || @win_odd.first == 3
-      computer.input = 'D'
-    else computer.give_input 
-    end
-
-    if @block_even.first == 0 || @win_even.first == 0
+      return computer.input = 'D'
+    elsif @block_even.first == 0 || @win_even.first == 0
       computer.input = 'D'
     elsif @block_even.first == 1 || @win_even.first == 1
       computer.input = 'E'
@@ -244,4 +245,55 @@ class Board
     else computer.give_input
     end 
   end
+
+  def computer_diagonal_block
+    @temp_array.find do |section|
+      @block_d_odd = [@temp_array.index(section)] if section == ['.', 'X', 'X', 'X']
+    end 
+
+    @temp_array.find do |section|
+      @block_d_even = [@temp_array.index(section)] if section == ['X', 'X', 'X', '.']
+    end 
+  end 
+
+  def computer_diagonal_win
+    @temp_array.find do |section|
+      @win_d_odd = [temp_array.index(section)] if section == ['.', 'O', 'O', 'O']
+    end 
+
+   @temp_array.find do |section|
+      @win_d_even = [temp_array.index(section)] if section == ['O', 'O', 'O', '.']
+    end 
+  end 
+
+  def computer_input_diagonal
+    index_set_1 = [0, 2, 8]
+    index_set_2 = [1, 3, 5]
+    index_set_3 = [7, 10, 11]
+    index_set_4 = [4, 9]
+
+    if index_set_1.include?(@block_d_odd.first) || index_set_1.include?(@win_d_odd.first)
+      computer.input = 'A'
+    elsif index_set_2.include?(@block_d_odd.first) || index_set_2.include?(@win_d_odd.first) 
+      computer.input = 'B'
+    elsif index_set_3.include?(@block_d_odd.first) || index_set_3.include?(@win_d_odd.first)
+      computer.input = 'D'
+    elsif index_set_4.include?(@block_d_odd.first) || index_set_4.include?(@win_d_odd.first)
+      computer.input = 'C'
+    elsif @block_d_odd.first == 6 || @win_d_odd.first == 6
+      computer.input = 'C'
+    elsif index_set_1.include?(@block_d_even.first) || index_set_1.include?(@win_d_even.first)
+      computer.input = 'D'
+    elsif index_set_2.include?(@block_d_even.first) || index_set_2.include?(@win_d_even.first)
+      computer.input = 'E'
+    elsif index_set_3.include?(@block_d_even.first) || index_set_3.include?(@win_d_even.first) 
+      computer.input = 'G'
+    elsif index_set_4.include?(@block_d_even.first) || index_set_4.include?(@win_d_even.first)
+      computer.input = 'F'
+    elsif @block_d_even.first == 6 || @win_d_even.first == 6
+      computer.input = 'G'
+    else
+      computer.give_input
+    end 
+  end 
 end
