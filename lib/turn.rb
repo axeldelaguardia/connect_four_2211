@@ -57,4 +57,43 @@ class Turn
     puts '------------------------------------------------------'
     return 'End of computer turn.'
   end
+
+  # Intelligent computer addition
+
+  def intelligent_computer_win
+    board.computer_column_win
+    board.computer_row_win
+    board.computer_diagonal_win
+  end
+
+  def intelligent_computer_block
+    board.computer_column_block
+    board.computer_row_block
+    board.computer_diagonal_block
+  end 
+
+  def intelligent_computer_move
+    intelligent_computer_win
+    intelligent_computer_block
+  
+    if !board.column_win.empty? 
+      board.computer_column_win
+    elsif !board.win_odd.empty? || !board.win_even.empty?
+      board.block_odd.clear
+      board.block_even.clear
+      board.computer_input_rows
+    elsif !board.win_d_odd.empty? || !board.win_d_even.empty?
+      board.block_d_odd.clear
+      board.block_d_even.clear
+      board.computer_input_diagonal
+    elsif !board.block_d_odd.empty? || !board.block_d_even.empty?
+      board.computer_input_diagonal
+    elsif !board.block_odd.empty? || !board.block_even.empty?
+      board.computer_input_rows
+    elsif !board.column_block.empty? 
+      board.computer_column_block
+    else
+      board.computer.give_input
+    end
+  end
 end
