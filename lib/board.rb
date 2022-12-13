@@ -80,7 +80,6 @@ class Board
 			counter += 1
 		@rows << row
 		end
-  
 	end
 
 	def row_winner_check
@@ -199,6 +198,7 @@ class Board
   end
 
   def computer_row_check
+    @rows.shift(6)
     n = 0
     @rows.reverse.map {|n| n.each_cons(4) {|element| @row_sections.push(element)}}
 
@@ -212,7 +212,6 @@ class Board
   end 
 
   def computer_row_block
-    computer_row_check
     n = 0
     6.times do
       @row_check[n].find do |section|
@@ -250,7 +249,6 @@ class Board
       end 
       n += 1
     end 
-    @row_check.clear
   end
 
   def computer_input_rows
@@ -318,7 +316,6 @@ class Board
    @temp_array.find do |section|
       @win_d_even = [@temp_array.index(section)] if section == ['O', 'O', 'O', '.']
     end 
-    @temp_array.clear
   end 
 
   def computer_input_diagonal

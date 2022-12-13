@@ -46,6 +46,7 @@ class Game
 
   def play_game
     until @board.winner == @computer || @board.winner == @player || @board.full? == true
+      @board.rows.clear
       player_move
       computer_move
     end
@@ -79,7 +80,7 @@ class Game
 
   def computer_move 
     p "Computer's move"
-    @board.computer.give_input
+    @turn.intelligent_computer_move
     input = @board.computer.input
     until @turn.column_space_check(input) == true
       @board.computer.give_input

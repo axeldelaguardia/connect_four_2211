@@ -80,26 +80,40 @@ class Turn
   
     if !board.column_win.empty? 
       board.computer_column_win
+      board.column_win.clear 
     elsif !board.win_odd.empty? || !board.win_even.empty?
       board.block_odd.clear
       board.block_even.clear
       board.computer_input_rows
+      board.win_odd.clear
+      board.win_even.clear
     elsif !board.win_d_odd.empty? || !board.win_d_even.empty?
       board.block_d_odd.clear
       board.block_d_even.clear
       board.computer_input_diagonal
+      board.win_d_odd.clear
+      board.win_d_even.clear
     elsif !board.win_rd_odd.empty? || !board.win_rd_even.empty?
       board.block_rd_odd.clear
       board.block_rd_even.clear
       board.computer_input_diagonal
+      board.win_rd_odd.clear
+      board.win_rd_even.clear
     elsif !board.block_rd_odd.empty? || !board.block_rd_even.empty?
       board.computer_input_diagonal
+      board.block_rd_odd.clear
+      board.block_rd_even.clear
     elsif !board.block_d_odd.empty? || !board.block_d_even.empty?
       board.computer_input_diagonal
+      board.block_d_odd.clear
+      board.block_d_even.clear
     elsif !board.block_odd.empty? || !board.block_even.empty?
       board.computer_input_rows
+      board.block_odd.clear
+      board.block_even.clear
     elsif !board.column_block.empty? 
       board.computer_column_block
+      board.column_block.clear
     else
       board.computer.give_input
     end
