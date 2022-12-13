@@ -1,12 +1,26 @@
 class Board
 	attr_accessor :board
-	attr_reader :computer, :player, :rows
+	attr_reader :computer, 
+              :player, 
+              :rows,
+              :column_block,
+              :column_win,
+              :block_odd,
+              :block_even,
+              :win_odd,
+              :win_even,
+              :block_d_even,
+              :block_d_odd,
+              :win_d_even,
+              :win_d_odd
 
 	def initialize(player, computer)
 		@player = player	
 		@rows = []
 		@computer = computer
 		@temp_array = []
+    @column_block = []
+    @column_win = []
     @block_odd = []
     @block_even = []
     @win_odd = []
@@ -56,6 +70,7 @@ class Board
 			counter += 1
 		@rows << row
 		end
+  
 	end
 
 	def row_winner_check
@@ -156,28 +171,26 @@ class Board
 
   # Start of Intelligent Computer
   def computer_column_block
-    column_block = []
     board.each do |key, value|
       board[key].each_cons(4) do |element|
-        column_block << key if element == ['.','X', 'X', 'X']
+        @column_block << key if element == ['.','X', 'X', 'X']
       end
     end 
-    computer.input = column_block.first
+    computer.input = @column_block.first if !@column_block.empty?
   end
 
   def computer_column_win
-    column_win = []
     board.each do |key, value|
       board[key].each_cons(4) do |element|
-        column_win << key if element == ['.','O', 'O', 'O']
+        @column_win << key if element == ['.','O', 'O', 'O']
       end
     end 
-    computer.input = column_win.first
+    computer.input = @column_win.first if !@column_win.empty?
   end
 
   def computer_row_check
     n = 0
-    rows.reverse.map {|n| n.each_cons(4) {|element| @row_sections.push(element)}}
+    @rows.reverse.map {|n| n.each_cons(4) {|element| @row_sections.push(element)}}
 
     @row_check.push(@row_sections.slice(0,4))
     @row_check.push(@row_sections.slice(4,4))
@@ -185,6 +198,7 @@ class Board
     @row_check.push(@row_sections.slice(12,4))
     @row_check.push(@row_sections.slice(16,4))
     @row_check.push(@row_sections.slice(20,4))
+  
   end 
 
   def computer_row_block
@@ -204,10 +218,13 @@ class Board
       end 
       n += 1
     end
+
+    @row_check.clear
   end
 
   def computer_row_win
     computer_row_check 
+   
     n = 0
     6.times do
       @row_check[n].find do |section|
@@ -223,6 +240,7 @@ class Board
       end 
       n += 1
     end 
+    @row_check.clear
   end
 
   def computer_input_rows
@@ -242,11 +260,11 @@ class Board
       computer.input = 'F'
     elsif @block_even.first == 3 || @win_even.first == 3
       computer.input = 'G'
-    else computer.give_input
     end 
   end
 
   def computer_diagonal_block
+    diagonal_arrays(board.values)
     @temp_array.find do |section|
       @block_d_odd = [@temp_array.index(section)] if section == ['.', 'X', 'X', 'X']
     end 
@@ -257,12 +275,13 @@ class Board
   end 
 
   def computer_diagonal_win
+    diagonal_arrays(board.values)
     @temp_array.find do |section|
-      @win_d_odd = [temp_array.index(section)] if section == ['.', 'O', 'O', 'O']
+      @win_d_odd = [@temp_array.index(section)] if section == ['.', 'O', 'O', 'O']
     end 
 
    @temp_array.find do |section|
-      @win_d_even = [temp_array.index(section)] if section == ['O', 'O', 'O', '.']
+      @win_d_even = [@temp_array.index(section)] if section == ['O', 'O', 'O', '.']
     end 
   end 
 
@@ -292,8 +311,6 @@ class Board
       computer.input = 'F'
     elsif @block_d_even.first == 6 || @win_d_even.first == 6
       computer.input = 'G'
-    else
-      computer.give_input
     end 
   end 
 end
