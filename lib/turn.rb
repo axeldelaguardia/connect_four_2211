@@ -27,7 +27,7 @@ class Turn
     if column_space_check(input) == false
       return 'Computer chooses another column.'
     else
-      computer_intelligent_move
+      computer_place_piece
     end     
   end 
 
@@ -64,12 +64,14 @@ class Turn
     board.computer_column_win
     board.computer_row_win
     board.computer_diagonal_win
+    board.computer_reverse_diagonal_win
   end
 
   def intelligent_computer_block
     board.computer_column_block
     board.computer_row_block
     board.computer_diagonal_block
+    board.computer_reverse_diagonal_block
   end 
 
   def intelligent_computer_move
@@ -86,6 +88,12 @@ class Turn
       board.block_d_odd.clear
       board.block_d_even.clear
       board.computer_input_diagonal
+    elsif !board.win_rd_odd.empty? || !board.win_rd_even.empty?
+      board.block_rd_odd.clear
+      board.block_rd_even.clear
+      board.computer_input_diagonal
+    elsif !board.block_rd_odd.empty? || !board.block_rd_even.empty?
+      board.computer_input_diagonal
     elsif !board.block_d_odd.empty? || !board.block_d_even.empty?
       board.computer_input_diagonal
     elsif !board.block_odd.empty? || !board.block_even.empty?
@@ -95,7 +103,6 @@ class Turn
     else
       board.computer.give_input
     end
-    computer_place_piece
-    computer_turn_message
+    input = board.computer.input
   end
 end
