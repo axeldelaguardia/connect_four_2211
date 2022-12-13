@@ -372,5 +372,39 @@ describe Board do
       board.computer_input_diagonal
       expect(board.computer.input).to eq('A')
     end 
+
+    it 'checks reverse diagonals for a block' do
+      board.board = {
+				'A' => ['.', '.', '.', '.', '.', 'X'],
+				'B' => ['.', '.', '.', '.', 'X', 'O'],
+				'C' => ['.', '.', '.', 'X', 'O', 'O'],
+				'D' => ['.', '.', '.', 'X', 'O', 'O'],
+				'E' => ['.', '.', '.', '.', 'X', '.'],
+				'F' => ['.', '.', '.', '.', '.', 'O'],
+				'G' => ['.', '.', '.', '.', '.', '.']
+			}
+
+      board.show_board
+      board.computer_reverse_diagonal_block
+      board.computer_input_diagonal
+      expect(board.computer.input).to eq('D')
+    end 
+
+    it 'checks reverse diagonals for a win' do
+      board.board = {
+				'A' => ['.', '.', '.', '.', '.', 'X'],
+				'B' => ['.', '.', '.', '.', 'X', 'O'],
+				'C' => ['.', '.', '.', '.', 'O', 'O'],
+				'D' => ['.', '.', '.', 'X', 'O', 'O'],
+				'E' => ['.', '.', '.', 'O', 'X', '.'],
+				'F' => ['.', '.', '.', '.', '.', 'O'],
+				'G' => ['.', '.', '.', '.', '.', '.']
+			}
+
+      board.show_board
+      board.computer_reverse_diagonal_win
+      board.computer_input_diagonal
+      expect(board.computer.input).to eq('F')
+    end 
   end
 end
