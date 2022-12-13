@@ -395,7 +395,7 @@ describe Board do
 				'A' => ['.', '.', '.', '.', '.', 'X'],
 				'B' => ['.', '.', '.', '.', 'X', 'O'],
 				'C' => ['.', '.', '.', '.', 'O', 'O'],
-				'D' => ['.', '.', '.', 'X', 'O', 'O'],
+				'D' => ['.', '.', '.', 'O', 'X', 'O'],
 				'E' => ['.', '.', '.', 'O', 'X', '.'],
 				'F' => ['.', '.', '.', '.', '.', 'O'],
 				'G' => ['.', '.', '.', '.', '.', '.']
@@ -404,7 +404,7 @@ describe Board do
       board.show_board
       board.computer_reverse_diagonal_win
       board.computer_input_diagonal
-      expect(board.computer.input).to eq('F')
+      expect(board.computer.input).to eq('E')
     end 
   end
 end

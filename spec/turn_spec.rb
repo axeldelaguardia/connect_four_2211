@@ -200,7 +200,7 @@ describe Turn do
       expect(board.computer.input).to eq('B')
     end 
 
-    it 'places a piece for a reverse diagonal block' do
+    it 'places a piece for a reverse diagonal win' do
       board = Board.new(@player, @computer)
       turn = Turn.new(board)
 
@@ -209,7 +209,7 @@ describe Turn do
 				'B' => ['.', '.', '.', '.', 'O', 'X'],
 				'C' => ['.', '.', '.', '.', 'X', 'O'],
 				'D' => ['.', '.', '.', 'X', 'O', 'X'],
-				'E' => ['.', '.', '.', '.', 'X', 'O'],
+				'E' => ['.', '.', '.', 'O', 'X', 'O'],
 				'F' => ['.', '.', '.', '.', '.', '.'],
 				'G' => ['.', '.', '.', '.', '.', '.']
 			}

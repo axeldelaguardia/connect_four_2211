@@ -228,7 +228,7 @@ class Board
       n += 1
     end
 
-    @row_check.clear
+    @row_check.clear 
   end
 
   def computer_row_win
@@ -284,7 +284,6 @@ class Board
   end 
 
   def computer_reverse_diagonal_block
-    @reverse_d = diagonal_arrays(reversed_board_columns)
     @reverse_d.find do |section|
       @block_rd_odd = [@reverse_d.index(section)] if section == ['.', 'X', 'X', 'X']
     end 
@@ -301,10 +300,9 @@ class Board
       @win_rd_odd = [@reverse_d.index(section)] if section == ['.', 'O', 'O', 'O']
     end 
 
-   @reverse_d.find do |section|
+    @reverse_d.find do |section|
       @win_rd_even = [@reverse_d.index(section)] if section == ['O', 'O', 'O', '.']
     end 
-    @reverse_d.clear
   end 
 
   def computer_diagonal_win
