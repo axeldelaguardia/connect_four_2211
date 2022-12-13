@@ -27,7 +27,7 @@ class Turn
     if column_space_check(input) == false
       return 'Computer chooses another column.'
     else
-      computer_place_piece
+      computer_intelligent_move
     end     
   end 
 
@@ -95,5 +95,7 @@ class Turn
     else
       board.computer.give_input
     end
+    computer_place_piece
+    computer_turn_message
   end
 end
