@@ -92,9 +92,9 @@ describe Turn do
 
       board.board = {
 				'A' => ['.', '.', '.', '.', '.', 'X'],
-				'B' => ['.', '.', '.', 'O', 'X', 'O'],
+				'B' => ['.', '.', '.', 'O', '.', 'O'],
 				'C' => ['.', 'X', 'X', 'X', 'O', 'O'],
-				'D' => ['.', '.', '.', 'X', 'X', 'X'],
+				'D' => ['.', '.', '.', '.', 'X', 'X'],
 				'E' => ['.', '.', '.', '.', 'O', 'O'],
 				'F' => ['.', '.', '.', '.', '.', '.'],
 				'G' => ['.', '.', '.', '.', '.', '.']
@@ -112,7 +112,7 @@ describe Turn do
       board.board = {
 				'A' => ['.', '.', '.', '.', '.', 'X'],
 				'B' => ['.', '.', '.', 'O', 'X', 'O'],
-				'C' => ['.', 'O', 'X', 'X', 'X', 'O'],
+				'C' => ['.', 'O', 'X', '.', 'X', 'O'],
 				'D' => ['.', '.', '.', 'O', 'X', 'X'],
 				'E' => ['.', '.', '.', 'X', 'O', 'O'],
 				'F' => ['.', '.', '.', '.', '.', '.'],
@@ -198,6 +198,25 @@ describe Turn do
       board.show_board
       turn.intelligent_computer_move
       expect(board.computer.input).to eq('B')
+    end 
+
+    it 'places a piece for a reverse diagonal block' do
+      board = Board.new(@player, @computer)
+      turn = Turn.new(board)
+
+      board.board = {
+				'A' => ['.', '.', '.', '.', 'O', 'X'],
+				'B' => ['.', '.', '.', '.', 'O', 'X'],
+				'C' => ['.', '.', '.', '.', 'X', 'O'],
+				'D' => ['.', '.', '.', 'X', 'O', 'X'],
+				'E' => ['.', '.', '.', '.', 'X', 'O'],
+				'F' => ['.', '.', '.', '.', '.', '.'],
+				'G' => ['.', '.', '.', '.', '.', '.']
+			}
+    
+      board.show_board
+      turn.intelligent_computer_move
+      expect(board.computer.input).to eq('E')
     end 
   end
 end
