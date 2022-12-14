@@ -3,6 +3,7 @@ class Board
 	attr_reader :computer, 
               :player, 
               :rows,
+              :temp_array,
               :column_block,
               :column_win,
               :block_odd,
@@ -17,7 +18,8 @@ class Board
               :block_rd_even,
               :block_rd_odd,
               :win_rd_even,
-              :win_rd_odd
+              :win_rd_odd,
+              :array_name
 
 	def initialize(player, computer)
 		@player = player	
@@ -41,9 +43,33 @@ class Board
     @block_rd_odd = []
     @win_rd_even = []
     @win_rd_odd = []
+    @array_name = []
 	end
 
-	def create_board
+	def clear_all
+    @temp_array = []
+    @column_block = []
+    @column_win = []
+    @block_odd = []
+    @block_even = []
+    @win_odd = []
+    @win_even = []
+    @row_sections = []
+    @row_check = []
+    @block_d_even = []
+    @block_d_odd = []
+    @win_d_even = []
+    @win_d_odd = []
+    @reverse_d = []
+    @block_rd_even = []
+    @block_rd_odd = []
+    @win_rd_even = []
+    @win_rd_odd = []
+    @array_name = []
+  end 
+  
+  def create_board
+    clear_all
 		@rows = []
 		@temp_array = []
 		@board = {
@@ -208,7 +234,6 @@ class Board
     @row_check.push(@row_sections.slice(12,4))
     @row_check.push(@row_sections.slice(16,4))
     @row_check.push(@row_sections.slice(20,4))
-  
   end 
 
   def computer_row_block
@@ -227,21 +252,20 @@ class Board
       end 
       n += 1
     end
-
-    @row_check.clear 
+    @row_check.clear
+    @row_sections.clear 
   end
 
   def computer_row_win
     computer_row_check 
-   
     n = 0
     6.times do
       @row_check[n].find do |section|
       @win_odd = [@row_check[n].index(section)] if section == ['.', 'O', 'O', 'O']
       end 
       n += 1
-    end 
-
+    end
+    
     n = 0
     6.times do
       @row_check[n].find do |section|
@@ -272,15 +296,25 @@ class Board
   end
 
   def computer_diagonal_block
-    diagonal_arrays(board.values)
-    @temp_array.find do |section|
-      @block_d_odd = [@temp_array.index(section)] if section == ['.', 'X', 'X', 'X']
+    @array_name.find do |section|
+      @block_d_odd = [@array_name.index(section)] if section == ['.', 'X', 'X', 'X']
     end 
 
-    @temp_array.find do |section|
-      @block_d_even = [@temp_array.index(section)] if section == ['X', 'X', 'X', '.']
+    @array_name.find do |section|
+      @block_d_even = [@array_name.index(section)] if section == ['X', 'X', 'X', '.']
     end 
     @temp_array.clear
+  end 
+
+  def computer_diagonal_win
+    @array_name = @temp_array[0..11]
+    @array_name.find do |section|
+      @win_d_odd = [@array_name.index(section)] if section == ['.', 'O', 'O', 'O']
+    end 
+
+    @array_name.find do |section|
+      @win_d_even = [@array_name.index(section)] if section == ['O', 'O', 'O', '.']
+    end 
   end 
 
   def computer_reverse_diagonal_block
@@ -295,24 +329,13 @@ class Board
   end 
 
   def computer_reverse_diagonal_win
-    @reverse_d = diagonal_arrays(reversed_board_columns)
+    @reverse_d = @temp_array[12..23]
     @reverse_d.find do |section|
       @win_rd_odd = [@reverse_d.index(section)] if section == ['.', 'O', 'O', 'O']
     end 
 
     @reverse_d.find do |section|
       @win_rd_even = [@reverse_d.index(section)] if section == ['O', 'O', 'O', '.']
-    end 
-  end 
-
-  def computer_diagonal_win
-    diagonal_arrays(board.values)
-    @temp_array.find do |section|
-      @win_d_odd = [@temp_array.index(section)] if section == ['.', 'O', 'O', 'O']
-    end 
-
-   @temp_array.find do |section|
-      @win_d_even = [@temp_array.index(section)] if section == ['O', 'O', 'O', '.']
     end 
   end 
 
