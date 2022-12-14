@@ -101,6 +101,8 @@ describe Turn do
 			}
     
       board.show_board
+      board.show_board
+      board.winner
       turn.intelligent_computer_move
       expect(board.computer.input).to eq('C')
     end
@@ -120,6 +122,8 @@ describe Turn do
 			}
     
       board.show_board
+      board.show_board
+      board.winner
       turn.intelligent_computer_move
       expect(board.computer.input).to eq('A')
     end
@@ -139,8 +143,31 @@ describe Turn do
 			}
     
       board.show_board
+      board.show_board
+      board.winner
       turn.intelligent_computer_move
       expect(board.computer.input).to eq('A')
+    end 
+
+    it 'blocks a reverse diagonal win' do
+      board = Board.new(@player, @computer)
+      turn = Turn.new(board)
+
+      board.board = {
+				'A' => ['.', '.', '.', '.', 'O', 'X'],
+				'B' => ['.', '.', '.', '.', 'O', 'X'],
+				'C' => ['.', '.', '.', '.', 'X', 'O'],
+				'D' => ['.', '.', '.', 'X', 'O', 'X'],
+				'E' => ['.', '.', '.', 'X', 'O', 'X'],
+				'F' => ['.', '.', '.', '.', '.', '.'],
+				'G' => ['.', '.', '.', '.', '.', '.']
+			}
+    
+      board.show_board
+      board.show_board
+      board.winner
+      turn.intelligent_computer_move
+      expect(board.computer.input).to eq('E')
     end 
 
     it 'places a piece for a column win' do
@@ -158,6 +185,8 @@ describe Turn do
 			}
     
       board.show_board
+      board.show_board
+      board.winner
       turn.intelligent_computer_move
       expect(board.computer.input).to eq('C')
     end
@@ -177,6 +206,8 @@ describe Turn do
 			}
     
       board.show_board
+      board.show_board
+      board.winner
       turn.intelligent_computer_move
       expect(board.computer.input).to eq('F')
     end 
@@ -196,6 +227,8 @@ describe Turn do
 			}
     
       board.show_board
+      board.show_board
+      board.winner
       turn.intelligent_computer_move
       expect(board.computer.input).to eq('B')
     end 
@@ -209,12 +242,14 @@ describe Turn do
 				'B' => ['.', '.', '.', '.', 'O', 'X'],
 				'C' => ['.', '.', '.', '.', 'X', 'O'],
 				'D' => ['.', '.', '.', 'X', 'O', 'X'],
-				'E' => ['.', '.', '.', 'O', 'X', 'O'],
+				'E' => ['.', '.', '.', '.', 'X', 'O'],
 				'F' => ['.', '.', '.', '.', '.', '.'],
 				'G' => ['.', '.', '.', '.', '.', '.']
 			}
     
       board.show_board
+      board.show_board
+      board.winner
       turn.intelligent_computer_move
       expect(board.computer.input).to eq('E')
     end 

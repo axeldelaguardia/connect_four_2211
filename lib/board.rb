@@ -112,7 +112,6 @@ class Board
 		n = 0
 		winner_array_checks = []
 		@rows.map {|n| n.each_cons(4) {|element| winner_array_checks.push(element)}}
-
 		check_array_for_winner(winner_array_checks)
 	end
 
@@ -303,7 +302,6 @@ class Board
     @array_name.find do |section|
       @block_d_even = [@array_name.index(section)] if section == ['X', 'X', 'X', '.']
     end 
-    @temp_array.clear
   end 
 
   def computer_diagonal_win
@@ -325,7 +323,6 @@ class Board
     @reverse_d.find do |section|
       @block_rd_even = [@reverse_d.index(section)] if section == ['X', 'X', 'X', '.']
     end
-    @reverse_d.clear
   end 
 
   def computer_reverse_diagonal_win

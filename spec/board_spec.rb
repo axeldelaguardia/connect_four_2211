@@ -317,6 +317,8 @@ describe Board do
 			}
 
       board.show_board
+      board.show_board
+      board.computer_row_check 
       board.computer_row_block
       board.computer_input_rows
       expect(board.computer.input).to eq('F')
@@ -334,6 +336,8 @@ describe Board do
 			}
 
       board.show_board
+      board.show_board
+      board.computer_row_check 
       board.computer_row_win
       board.computer_input_rows
       expect(board.computer.input).to eq('A')
@@ -351,6 +355,8 @@ describe Board do
 			}
 
       board.show_board
+      board.winner
+      board.computer_diagonal_win
       board.computer_diagonal_block
       board.computer_input_diagonal
       expect(board.computer.input).to eq('B')
@@ -368,6 +374,7 @@ describe Board do
 			}
 
       board.show_board
+      board.winner 
       board.computer_diagonal_win
       board.computer_input_diagonal
       expect(board.computer.input).to eq('A')
@@ -385,6 +392,8 @@ describe Board do
 			}
 
       board.show_board
+      board.winner
+      board.computer_reverse_diagonal_win
       board.computer_reverse_diagonal_block
       board.computer_input_diagonal
       expect(board.computer.input).to eq('D')
@@ -402,6 +411,7 @@ describe Board do
 			}
 
       board.show_board
+      board.winner
       board.computer_reverse_diagonal_win
       board.computer_input_diagonal
       expect(board.computer.input).to eq('E')

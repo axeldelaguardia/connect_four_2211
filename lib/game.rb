@@ -45,7 +45,8 @@ class Game
   end
 
   def play_game
-    until @board.winner == @computer || @board.winner == @player || @board.full? == true
+    winner = @board.winner
+    until winner == @computer || winner == @player || @board.full? == true
       @board.rows.clear
       player_move
       computer_move
