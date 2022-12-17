@@ -3,6 +3,9 @@ class Board
 	attr_reader :computer, 
               :player, 
               :rows,
+							:temp_array,
+							:row_sections,
+							:row_check,
               :column_block,
               :column_win,
               :block_odd,
@@ -43,9 +46,16 @@ class Board
     @win_rd_odd = []
 	end
 
+	def clear_all
+		arrays = [@win_rd_odd, @win_rd_even, @block_rd_odd, @reverse_d, @win_d_odd, @win_d_even, @block_d_odd, @row_check, @row_sections, @win_even, @win_odd, @block_even, @block_odd, @column_win, @column_block, @temp_array, @rows]
+		arrays.map do |array| 
+			array.clear
+		end
+	end
+	
+
 	def create_board
-		@rows = []
-		@temp_array = []
+		clear_all
 		@board = {
 			'A' => ['.', '.', '.', '.', '.', '.'],
 			'B' => ['.', '.', '.', '.', '.', '.'],
@@ -103,6 +113,7 @@ class Board
 		diagonal_arrays_set_four(array)
 
 		@temp_array.delete_if {|n| n.include?(nil)}
+		require 'pry'; binding.pry
 		return @temp_array
 	end
 
@@ -229,6 +240,7 @@ class Board
     end
 
     @row_check.clear 
+		@row_sections.clear
   end
 
   def computer_row_win
@@ -272,7 +284,7 @@ class Board
   end
 
   def computer_diagonal_block
-    diagonal_arrays(board.values)
+    # diagonal_arrays(board.values)
     @temp_array.find do |section|
       @block_d_odd = [@temp_array.index(section)] if section == ['.', 'X', 'X', 'X']
     end 
@@ -280,6 +292,7 @@ class Board
     @temp_array.find do |section|
       @block_d_even = [@temp_array.index(section)] if section == ['X', 'X', 'X', '.']
     end 
+		require 'pry'; binding.pry
     @temp_array.clear
   end 
 
@@ -295,6 +308,8 @@ class Board
   end 
 
   def computer_reverse_diagonal_win
+		require 'pry'; binding.pry
+		@temp_array = []
     @reverse_d = diagonal_arrays(reversed_board_columns)
     @reverse_d.find do |section|
       @win_rd_odd = [@reverse_d.index(section)] if section == ['.', 'O', 'O', 'O']
@@ -306,7 +321,7 @@ class Board
   end 
 
   def computer_diagonal_win
-    diagonal_arrays(board.values)
+    # diagonal_arrays(board.values)
     @temp_array.find do |section|
       @win_d_odd = [@temp_array.index(section)] if section == ['.', 'O', 'O', 'O']
     end 
